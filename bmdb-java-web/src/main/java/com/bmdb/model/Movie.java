@@ -12,6 +12,7 @@ public class Movie {
 	private String title;
 	private int year;
 	private String director;
+	private String rating;
 	
 	
 	@Override
@@ -41,6 +42,12 @@ public class Movie {
 	}
 	public void setDirector(String director) {
 		this.director = director;
+	}
+	public String getRating() {
+		return rating;
+	}
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 	
 }
