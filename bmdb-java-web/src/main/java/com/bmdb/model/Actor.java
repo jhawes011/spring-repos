@@ -1,5 +1,7 @@
 package com.bmdb.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +15,7 @@ public class Actor {
     private String firstName;
     private String lastName;
     private String gender;
-    private String birthDate;
+    private LocalDate birthDate;
 	public int getId() {
 		return id;
 	}
@@ -38,10 +40,10 @@ public class Actor {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 	@Override
