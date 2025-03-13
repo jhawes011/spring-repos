@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.prsdb.db.UserRepo;
+
 import com.prsdb.db.VendorRepo;
-import com.prsdb.model.User;
+
 import com.prsdb.model.Vendor;
 
 @CrossOrigin
