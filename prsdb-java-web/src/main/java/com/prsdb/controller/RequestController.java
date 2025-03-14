@@ -76,7 +76,20 @@ public class RequestController
 		}
 		return prefix + dateSection + nextRequestNumStr;
 	}
-
+	@PutMapping("/submit-review/{id}")
+	public void submitReview(@PathVariable int id)
+	{
+		Optional<Request> r = requestRepo.findById(id);
+		if (r.isPresent())
+		{
+			Request request = r.get();
+			request.setStatus(request.getTotal() <= 50 ? "APPROVED" : "REVIEW");
+			requestRepo.save(request);
+		} else
+		{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
+		}
+	}
 	@PutMapping("/{id}")
 	public void putRequest(@PathVariable int id, @RequestBody Request request)
 	{
