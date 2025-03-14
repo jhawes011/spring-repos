@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.prsdb.db.RequestRepo;
 import com.prsdb.model.Request;
+import com.prsdb.model.RequestRejectDTO;
 
 @CrossOrigin
 @RestController
@@ -26,6 +27,12 @@ public class RequestController
 	public List<Request> getAll()
 	{
 		return requestRepo.findAll();
+	}
+
+	@GetMapping("/list-review/{userId}")
+	public List<Request> getAllReview(@PathVariable int userId)
+	{
+		return requestRepo.findByStatusAndUserIdNot("REVIEW", userId);
 	}
 
 	@GetMapping("/{id}")
@@ -51,31 +58,6 @@ public class RequestController
 		return requestRepo.save(request);
 	}
 
-	private String generateRequestNumber()
-	{
-		String dateSection = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
-		String prefix = "R";
-		int nextRequestNum = 1;
-		Optional<Request> newestRequest = requestRepo.findTopByOrderByRequestNumberDesc();
-		if (newestRequest.isPresent())
-		{
-			String newestRequestNumStr = newestRequest.get().getRequestNumber().substring(7, 11);
-			try
-			{
-				int newestRequestNum = Integer.parseInt(newestRequestNumStr);
-				nextRequestNum = newestRequestNum + 1;
-			} catch (NumberFormatException e)
-			{
-				// Handle the exception if needed
-			}
-		}
-		String nextRequestNumStr = String.valueOf(nextRequestNum);
-		while (nextRequestNumStr.length() < 4)
-		{
-			nextRequestNumStr = "0" + nextRequestNumStr;
-		}
-		return prefix + dateSection + nextRequestNumStr;
-	}
 	@PutMapping("/submit-review/{id}")
 	public void submitReview(@PathVariable int id)
 	{
@@ -90,6 +72,7 @@ public class RequestController
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
 	}
+
 	@PutMapping("/{id}")
 	public void putRequest(@PathVariable int id, @RequestBody Request request)
 	{
@@ -105,7 +88,36 @@ public class RequestController
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
 	}
-
+	@PutMapping	("/approve/{id}")
+	public void approveRequest(@PathVariable int id)
+	{
+		Optional<Request> r = requestRepo.findById(id);
+		if (r.isPresent())
+		{
+			Request request = r.get();
+			request.setStatus("APPROVED");
+			requestRepo.save(request);
+		} else
+		{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
+		}
+	}
+	@PutMapping	("/reject/{id}")
+	public void rejectRequest(@PathVariable int id, @RequestBody RequestRejectDTO requestRejectDTO)
+	{
+		Optional<Request> r = requestRepo.findById(id);
+		if (r.isPresent())
+		{
+			Request request = r.get();
+			request.setStatus("REJECTED");
+			request.setReasonForRejection(requestRejectDTO.getReasonForRejection());
+			requestRepo.save(request);
+		} else
+		{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
+		}
+	}
+	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable int id)
 	{
@@ -116,5 +128,31 @@ public class RequestController
 		{
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
+	}
+
+	private String generateRequestNumber()
+	{
+		String dateSection = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
+		String prefix = "R";
+		int nextRequestNum = 1;
+		Optional<Request> newestRequest = requestRepo.findTopByOrderByRequestNumberDesc();
+		if (newestRequest.isPresent())
+		{
+			String newestRequestNumStr = newestRequest.get().getRequestNumber().substring(7, 11);
+			try
+			{
+				int newestRequestNum = Integer.parseInt(newestRequestNumStr);
+				nextRequestNum = newestRequestNum + 1;
+			} catch (NumberFormatException e)
+			{
+			}
+
+		}
+		String nextRequestNumStr = String.valueOf(nextRequestNum);
+		while (nextRequestNumStr.length() < 4)
+		{
+			nextRequestNumStr = "0" + nextRequestNumStr;
+		}
+		return prefix + dateSection + nextRequestNumStr;
 	}
 }
