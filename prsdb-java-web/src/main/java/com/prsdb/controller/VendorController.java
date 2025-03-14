@@ -40,10 +40,10 @@ public class VendorController {
 	public Optional<Vendor> getById(@PathVariable int id) {
 		Optional<Vendor> v = vendorRepo.findById(id);
 		if (v.isPresent()) {
-			return v; // Return the vendor if found
+			return v; 
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vendor not found for id " + id); // Return null if
-																									// not found
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vendor not found for id " + id); 
+																									
 		}
 	}
 

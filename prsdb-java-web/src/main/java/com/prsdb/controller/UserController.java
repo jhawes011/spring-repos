@@ -28,7 +28,7 @@ public class UserController {
 	        String password = user.getPassword();
 	        Optional<User> u = userLogin.findByUserNameAndPassword(userName, password);
 	        if (u.isPresent()) {
-	            return u; // Return the user if found
+	            return u; 
 	        } else {
 	            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for username " + userName);
 	        }
@@ -43,9 +43,9 @@ public class UserController {
 	public Optional<User> getById(@PathVariable int id) {
 		Optional<User> u = userRepo.findById(id);
 		if (u.isPresent()) {
-			return u; // Return the movie if found
+			return u; 
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for id " + id); // Return null if not found
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for id " + id); 
 		}
 	}
 
