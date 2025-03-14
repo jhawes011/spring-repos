@@ -16,28 +16,34 @@ import com.prsdb.model.Request;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/requests")
-public class RequestController {
+public class RequestController
+{
 
 	@Autowired
 	private RequestRepo requestRepo;
 
 	@GetMapping("/")
-	public List<Request> getAll() {
+	public List<Request> getAll()
+	{
 		return requestRepo.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Request> getById(@PathVariable int id) {
+	public Optional<Request> getById(@PathVariable int id)
+	{
 		Optional<Request> r = requestRepo.findById(id);
-		if (r.isPresent()) {
+		if (r.isPresent())
+		{
 			return r;
-		} else {
+		} else
+		{
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
 	}
 
 	@PostMapping("")
-	public Request add(@RequestBody Request request) {
+	public Request add(@RequestBody Request request)
+	{
 		request.setRequestNumber(generateRequestNumber());
 		request.setStatus("NEW");
 		request.setSubmittedDate(LocalDateTime.now());
@@ -45,44 +51,56 @@ public class RequestController {
 		return requestRepo.save(request);
 	}
 
-	private String generateRequestNumber() {
+	private String generateRequestNumber()
+	{
 		String dateSection = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
 		String prefix = "R";
 		int nextRequestNum = 1;
 		Optional<Request> newestRequest = requestRepo.findTopByOrderByRequestNumberDesc();
-		if (newestRequest.isPresent()) {
+		if (newestRequest.isPresent())
+		{
 			String newestRequestNumStr = newestRequest.get().getRequestNumber().substring(7, 11);
-			try {
+			try
+			{
 				int newestRequestNum = Integer.parseInt(newestRequestNumStr);
 				nextRequestNum = newestRequestNum + 1;
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException e)
+			{
 				// Handle the exception if needed
 			}
 		}
 		String nextRequestNumStr = String.valueOf(nextRequestNum);
-		while (nextRequestNumStr.length() < 4) {
+		while (nextRequestNumStr.length() < 4)
+		{
 			nextRequestNumStr = "0" + nextRequestNumStr;
 		}
 		return prefix + dateSection + nextRequestNumStr;
 	}
 
 	@PutMapping("/{id}")
-	public void putRequest(@PathVariable int id, @RequestBody Request request) {
-		if (id != request.getId()) {
+	public void putRequest(@PathVariable int id, @RequestBody Request request)
+	{
+		if (id != request.getId())
+		{
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID in path and body must match");
 		}
-		if (requestRepo.existsById(id)) {
+		if (requestRepo.existsById(id))
+		{
 			requestRepo.save(request);
-		} else {
+		} else
+		{
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable int id) {
-		if (requestRepo.existsById(id)) {
+	public void delete(@PathVariable int id)
+	{
+		if (requestRepo.existsById(id))
+		{
 			requestRepo.deleteById(id);
-		} else {
+		} else
+		{
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Request not found for id " + id);
 		}
 	}

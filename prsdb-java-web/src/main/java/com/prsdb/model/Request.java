@@ -2,18 +2,16 @@ package com.prsdb.model;
 
 import java.time.LocalDateTime;
 
-
-
-
 import jakarta.persistence.*;
 
 @Entity
-public class Request {
-@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+public class Request
+{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name="userID")
+	@JoinColumn(name = "userID")
 	private User user;
 	private String requestNumber;
 	private String description;
@@ -24,75 +22,115 @@ public class Request {
 	private double total;
 	private LocalDateTime submittedDate;
 	private String reasonForRejection;
-	
-	
-	 
-	public int getId() {
+
+	public int getId()
+	{
 		return id;
 	}
-	public String getRequestNumber() {
+
+	public String getRequestNumber()
+	{
 		return requestNumber;
 	}
-	public void setRequestNumber(String string) {
+
+	public void setRequestNumber(String string)
+	{
 		this.requestNumber = string;
 	}
-	public void setId(int id) {
+
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-	public User getUser() {
+
+	public User getUser()
+	{
 		return user;
 	}
-	public void setUser(User user) {
+
+	public void setUser(User user)
+	{
 		this.user = user;
 	}
-	public String getDescription() {
+
+	public String getDescription()
+	{
 		return description;
 	}
-	public void setDescription(String description) {
+
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
-	public String getJustification() {
+
+	public String getJustification()
+	{
 		return justification;
 	}
-	public void setJustification(String justification) {
+
+	public void setJustification(String justification)
+	{
 		this.justification = justification;
 	}
-	public String getDateNeeded() {
+
+	public String getDateNeeded()
+	{
 		return dateNeeded;
 	}
-	public void setDateNeeded(String dateNeeded) {
+
+	public void setDateNeeded(String dateNeeded)
+	{
 		this.dateNeeded = dateNeeded;
 	}
-	public String getDeliveryMode() {
+
+	public String getDeliveryMode()
+	{
 		return deliveryMode;
 	}
-	public void setDeliveryMode(String deliveryMode) {
+
+	public void setDeliveryMode(String deliveryMode)
+	{
 		this.deliveryMode = deliveryMode;
 	}
-	public String getStatus() {
+
+	public String getStatus()
+	{
 		return status;
 	}
-	public void setStatus(String status) {
+
+	public void setStatus(String status)
+	{
 		this.status = status;
 	}
-	public double getTotal() {
+
+	public double getTotal()
+	{
 		return total;
 	}
-	public void setTotal(double total) {
+
+	public void setTotal(double total)
+	{
 		this.total = total;
 	}
-	public LocalDateTime getSubmittedDate() {
+
+	public LocalDateTime getSubmittedDate()
+	{
 		return submittedDate;
 	}
-	public void setSubmittedDate(LocalDateTime localDateTime) {
+
+	public void setSubmittedDate(LocalDateTime localDateTime)
+	{
 		this.submittedDate = localDateTime;
 	}
-	public String getReasonForRejection() {
+
+	public String getReasonForRejection()
+	{
 		return reasonForRejection;
 	}
-	public void setReasonForRejection(String reasonForRejection) {
+
+	public void setReasonForRejection(String reasonForRejection)
+	{
 		this.reasonForRejection = reasonForRejection;
 	}
-	
-	
+
 }

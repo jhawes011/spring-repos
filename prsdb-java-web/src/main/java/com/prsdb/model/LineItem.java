@@ -3,7 +3,8 @@ package com.prsdb.model;
 import jakarta.persistence.*;
 
 @Entity
-public class LineItem {
+public class LineItem
+{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -14,42 +15,50 @@ public class LineItem {
 	@JoinColumn(name = "ProductId")
 	private Product product;
 	private int quantity;
-	
-	public double getPrice() {
-        return product.getPrice();
-    }
-	
-	public int getId() {
+
+	public double getPrice()
+	{
+		return product.getPrice();
+	}
+
+	public int getId()
+	{
 		return id;
 	}
-	
-	public void setId(int id) {
+
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-	
-	public Request getRequest() {
+
+	public Request getRequest()
+	{
 		return request;
 	}
-	
-	public void setRequest(Request request) {
+
+	public void setRequest(Request request)
+	{
 		this.request = request;
 	}
-	
-	public Product getProduct() {
+
+	public Product getProduct()
+	{
 		return product;
 	}
-	
-	public void setProduct(Product product) {
+
+	public void setProduct(Product product)
+	{
 		this.product = product;
 	}
-	
-	public int getQuantity() {
+
+	public int getQuantity()
+	{
 		return quantity;
 	}
-	
-	public void setQuantity(int quantity) {
+
+	public void setQuantity(int quantity)
+	{
 		this.quantity = quantity;
 	}
-	
-	
+
 }
