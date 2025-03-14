@@ -39,6 +39,9 @@ public class RequestController {
 	@PostMapping("")
 	public Request add(@RequestBody Request request) {
 		request.setRequestNumber(generateRequestNumber());
+		request.setStatus("NEW");
+		request.setSubmittedDate(LocalDateTime.now());
+		request.setTotal(0);
 		return requestRepo.save(request);
 	}
 

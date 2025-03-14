@@ -1,5 +1,10 @@
 package com.prsdb.model;
 
+import java.time.LocalDateTime;
+
+
+
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,8 +22,11 @@ public class Request {
 	private String deliveryMode;
 	private String status;
 	private double total;
-	private String submittedDate;
+	private LocalDateTime submittedDate;
 	private String reasonForRejection;
+	
+	
+	 
 	public int getId() {
 		return id;
 	}
@@ -73,11 +81,11 @@ public class Request {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public String getSubmittedDate() {
+	public LocalDateTime getSubmittedDate() {
 		return submittedDate;
 	}
-	public void setSubmittedDate(String submittedDate) {
-		this.submittedDate = submittedDate;
+	public void setSubmittedDate(LocalDateTime localDateTime) {
+		this.submittedDate = localDateTime;
 	}
 	public String getReasonForRejection() {
 		return reasonForRejection;
@@ -85,5 +93,6 @@ public class Request {
 	public void setReasonForRejection(String reasonForRejection) {
 		this.reasonForRejection = reasonForRejection;
 	}
+	
 	
 }

@@ -15,26 +15,9 @@ public class LineItem {
 	private Product product;
 	private int quantity;
 	
-	public LineItem() {
-		id = 0;
-		request = null;
-		product = null;
-		quantity = 0;
-	}
-	
-	public LineItem(int id, Request request, Product product, int quantity) {
-		this.id = id;
-		this.request = request;
-		this.product = product;
-		this.quantity = quantity;
-	}
-	
-	public LineItem(Request request, Product product, int quantity) {
-		this.id = 0;
-		this.request = request;
-		this.product = product;
-		this.quantity = quantity;
-	}
+	public double getPrice() {
+        return product.getPrice();
+    }
 	
 	public int getId() {
 		return id;
@@ -68,8 +51,5 @@ public class LineItem {
 		this.quantity = quantity;
 	}
 	
-	@Override
-	public String toString() {
-		return "LineItem [id=" + id + ", request=" + request + ", product=" + product + ", quantity=" + quantity + "]";
-	}
+	
 }

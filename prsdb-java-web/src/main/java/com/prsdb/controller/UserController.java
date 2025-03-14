@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.prsdb.model.User;
+import com.prsdb.model.UserLogin;
 import com.prsdb.db.UserRepo;
 
 
@@ -19,6 +20,19 @@ import com.prsdb.db.UserRepo;
 public class UserController {
 	@Autowired
 	private UserRepo userRepo;
+	@Autowired
+	private UserLogin userLogin;
+	 @PostMapping("/login")
+	    public Optional<User> login(@RequestBody User user) {
+	        String userName = user.getUserName();
+	        String password = user.getPassword();
+	        Optional<User> u = userLogin.findByUserNameAndPassword(userName, password);
+	        if (u.isPresent()) {
+	            return u; // Return the user if found
+	        } else {
+	            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found for username " + userName);
+	        }
+	    }
 	//GET
 	@GetMapping("/")
 	public List<User> getAll() {
