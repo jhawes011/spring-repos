@@ -1,5 +1,6 @@
 package com.prsdb.controller;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +36,12 @@ public class ProductController {
 	}
 	@PostMapping("")
 	public Product add(@RequestBody Product product) {
+		
 		return productRepo.save(product);
 	}
+	
+
+
 	@PutMapping("/{id}")
 	public void putProduct(@PathVariable int id, @RequestBody Product product) {
 		if (id != product.getId()) {
